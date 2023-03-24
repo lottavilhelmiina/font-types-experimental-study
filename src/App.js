@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react'
 import { Typography } from '@mui/material'
 import useEventListener from '@use-it/event-listener'
@@ -6,6 +7,9 @@ import { Box } from '@mui/system';
 const ENTER_KEY = ['13', 'Enter'];
 
 function App() {
+  const [minutes, setMinutes] = React.useState(10);
+  const [seconds, setSeconds] = React.useState(0);
+
   const [textTable, setTextTable] = useState([
     {
       header: "The state of the world",
@@ -245,16 +249,14 @@ function App() {
 
         const timer = setTimeout(() => {
           setIsVisible(false);
-          
 
-        }, 200000);
+
+        }, 600000);
 
         return () => clearTimeout(timer);
       }
       else {
         // Update state with the input value
-
-        // Pushing the answers when the user presses Enter -button after time exceeded to move onto the next task.
 
         if (tableID === 3) {
           setIsEnd(true);
@@ -267,16 +269,43 @@ function App() {
         setTableID(tableID + 1);
         setFontID(fontID + 1);
         setIsVisible(true);
+        setMinutes(10)
+        setSeconds(0)
 
         const secondTimer = setTimeout(() => {
           setIsVisible(false);
-        }, 200000);
+        }, 600000);
 
         return () => clearTimeout(secondTimer);
       }
     }
   }
   useEventListener('keydown', handler);
+
+
+  React.useEffect(() => {
+
+    if (!isIntro && isVisible) {
+      if (seconds > 0 || minutes > 0) {
+        if (seconds === 0) {
+          const updateMinutes = setTimeout(() => {
+            setSeconds(59);
+            setMinutes(minutes - 1);
+          }, 1000);
+          return () => clearTimeout(updateMinutes);
+        }
+        else {
+          const updateSeconds = setTimeout(() => {
+            setSeconds(seconds - 1);
+          }, 1000);
+          return () => clearTimeout(updateSeconds);
+        }
+      }
+    }
+  }, [seconds, minutes, isIntro, isVisible]);
+
+
+
 
   return (
     <div className="App">
@@ -348,8 +377,8 @@ function App() {
               <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice3}</Typography>
               <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice4}</Typography>
               {!isPilot && <input value={answer6} onChange={formHandler6} />}
-
             </div>
+            <span><p>{minutes} minutes and {seconds} seconds left</p></span>
           </div>
         )}
         {!isVisible && tableID < 4 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for text {tableID + 1}. Please press Enter -button to move forward, when you are ready.</Typography>}
