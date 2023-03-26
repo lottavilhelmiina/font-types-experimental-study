@@ -3,8 +3,6 @@ import { useState } from 'react'
 import { Typography, Button } from '@mui/material'
 import { Box } from '@mui/system';
 
-const ENTER_KEY = ['13', 'Enter'];
-
 function App() {
   const [minutes, setMinutes] = React.useState(10);
   const [seconds, setSeconds] = React.useState(0);
