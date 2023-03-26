@@ -277,6 +277,7 @@ function App() {
         }, 600000);
 
         return () => clearTimeout(secondTimer);
+        
       }
     }
   }
@@ -291,20 +292,19 @@ function App() {
           const updateMinutes = setTimeout(() => {
             setSeconds(59);
             setMinutes(minutes - 1);
-          }, 1000);
+          }, 980);
           return () => clearTimeout(updateMinutes);
         }
         else {
           const updateSeconds = setTimeout(() => {
             setSeconds(seconds - 1);
-          }, 1000);
+          }, 980);
+          
           return () => clearTimeout(updateSeconds);
         }
       }
     }
   }, [seconds, minutes, isIntro, isVisible]);
-
-
 
 
   return (
