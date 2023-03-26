@@ -56,117 +56,117 @@ function App() {
 
   const [questionText, setQuestionText] = useState([
     {
-      description1: "What does the word 'apparently' in the first paragraph tell us about the rise in violence we see in the news?",
+      description1: "Question 1: What does the word 'apparently' in the first paragraph tell us about the rise in violence we see in the news?",
       d1Choice1: "A: The rise is obviously true.",
       d1Choice2: "B: The rise seems true but evidence might show it isn't.",
       d1Choice3: "C: The rise seems false but evidence might show it's true."
     },
     {
-      description1: "The majority of climbers on Everest...",
+      description1: "Question 1: The majority of climbers on Everest...",
       d1Choice1: "A: need oxygen to finish their ascent.",
       d1Choice2: "B: are accompanied.",
       d1Choice3: "C: make slow progress to the top.",
       d1Choice4: "D: (all of the above)",
 
-      description2: "Kilian Jornet is unlike most Everest climbers because...",
+      description2: "Question 2: Kilian Jornet is unlike most Everest climbers because...",
       d2Choice1: "A: he is a professional climber.",
       d2Choice2: "B: he ascended faster.",
       d2Choice3: "C: he found the climb difficult.",
       d2Choice4: "D: (all of the above)",
 
-      description3: "In his training now, Kilian...",
+      description3: "Question 3: In his training now, Kilian...",
       d3Choice1: "A: demands a lot of himself.",
       d3Choice2: "B: takes a lot of rest periods.",
       d3Choice3: "C: uses a coach.",
       d3Choice4: "D: (none of the above)",
 
-      description4: "Kilian partly owes his incredible fitness to...",
+      description4: "Question 4: Kilian partly owes his incredible fitness to...",
       d4Choice1: "A: the way he makes extra time for sleep.",
       d4Choice2: "B: his ability to recover from injury.",
       d4Choice3: "C: where he grew up.",
       d4Choice4: "D: (all of the above)",
 
-      description5: "His training includes...",
+      description5: "Question 5: His training includes...",
       d5Choice1: "A: psychological preparation.",
       d5Choice2: "B: making sure he drinks enough water.",
       d5Choice3: "C: trying to reduce his recovery time.",
       d5Choice4: "D: (none of the above)",
 
-      description6: "Kilian's books are...",
+      description6: "Question 6: Kilian's books are...",
       d6Choice1: "A: a long list of races and awards.",
       d6Choice2: "B: discouraging to average people.",
       d6Choice3: "C: best for an expert audience.",
       d6Choice4: "D: another example of his impressive accomplishments.",
     },
     {
-      description1: "Mass-produced bananas are...",
+      description1: "Question 1: Mass-produced bananas are...",
       d1Choice1: "A: grown from seeds because it's efficient.",
       d1Choice2: "B: cloned because it's a fast and cheap way to grow them.",
       d1Choice3: "C: sweeter than other bananas.",
       d1Choice4: "D: exported to Central America.",
 
-      description2: "The spread of the TR-1 strain was...",
+      description2: "Question 2: The spread of the TR-1 strain was...",
       d2Choice1: "A: caused by lack of water.",
       d2Choice2: "B: speeded up by the flooding of banana fields.",
       d2Choice3: "C: slowed down by crop spraying.",
       d2Choice4: "D: helped by the movement of people and vehicles.",
 
-      description3: "Which sentence is NOT true?",
+      description3: "Question 3: Which sentence is NOT true?",
       d3Choice1: "A: The Cavendish replaced the Gros Michel.",
       d3Choice2: "B: The Cavendish bananas were easier to transport than the Gros Michel.",
       d3Choice3: "C: The Cavendish was resistant to the fungus.",
       d3Choice4: "D: The Cavendish stopped United Fruit from losing more money.",
 
-      description4: "South East Asia's Cavendish exports fell in 2015 because...",
+      description4: "Question 4: South East Asia's Cavendish exports fell in 2015 because...",
       d4Choice1: "A: a new strain of the fungus has developed.",
       d4Choice2: "B: farmers can't afford new farming technology.",
       d4Choice3: "C: they had to quarantine their fruit.",
       d4Choice4: "D: they depended too much on other countries.",
 
-      description5: "Genetically modifying bananas may...",
+      description5: "Question 5: Genetically modifying bananas may...",
       d5Choice1: "A: mean farmers can grow the Gros Michel again.",
       d5Choice2: "B: cause farmers to repeat the mistakes of the past.",
       d5Choice3: "C: encourage farmers to try new growing methods.",
       d5Choice4: "D: only be a short-term solution.",
 
-      description6: "How would you describe the writer's opinion about the future of the Cavendish?",
+      description6: "Question 6: How would you describe the writer's opinion about the future of the Cavendish?",
       d6Choice1: "A: Optimistic",
       d6Choice2: "B: Pessimistic",
       d6Choice3: "C: Cautious",
       d6Choice4: "D: Uninterested",
     },
     {
-      description1: "Why is Jo writing to Karl?",
+      description1: "Question 1: Why is Jo writing to Karl?",
       d1Choice1: "A: To suggest that his management style is not suitable for the current members of his team",
       d1Choice2: "B: To let him know about the issues his team member is facing and help him manage them",
       d1Choice3: "C: To tell him how to solve his problems",
       d1Choice4: "D: To ask him to take it easy on Judy and not give her too much work",
 
-      description2: "What is Judy not used to?",
+      description2: "Question 2: What is Judy not used to?",
       d2Choice1: "A: Being told what to do",
       d2Choice2: "B: Collaborating with people internationally",
       d2Choice3: "C: Being left to do things on her own",
       d2Choice4: "D: Delegating work to other people",
 
-      description3: "Why is Judy confused by the changing targets?",
+      description3: "Question 3: Why is Judy confused by the changing targets?",
       d3Choice1: "A: She feels as if she needs to understand the reasons for the changes.",
       d3Choice2: "B: She has simultaneous deadlines from the Tokyo office.",
       d3Choice3: "C: She doesn't want to know the bigger picture, just her part.",
       d3Choice4: "D: She doesn't like meeting deadlines.",
 
-      description4: "Who might benefit from having a better overview of the project and a better understanding of how the individual tasks fit together to achieve the group target?",
+      description4: "Question 4: Who might benefit from having a better overview of the project and a better understanding of how the individual tasks fit together to achieve the group target?",
       d4Choice1: "A: Only Judy",
       d4Choice2: "B: Judy and the Tokyo office",
       d4Choice3: "C: Judy and Karl",
       d4Choice4: "D: Judy and the rest of Karl's team",
 
-      description5: "What does Jo think of Judy?",
+      description5: "Question 5: What does Jo think of Judy?",
       d5Choice1: "A: Judy works well independently but isn't a good team player.",
       d5Choice2: "B: Judy is lazy and prefers managers to tell her exactly what to do.",
       d5Choice3: "C: Judy is very hard-working and capable and will go far in the company.",
       d5Choice4: "D: Judy is very enthusiastic but not very experienced.",
 
-      description6: "Which of these does Jo do in her email?",
+      description6: "Question 6: Which of these does Jo do in her email?",
       d6Choice1: "A: Mix positives in with the negatives",
       d6Choice2: "B: Focus on the solutions",
       d6Choice3: "C: Use language to show that she's expressing her own opinion or a possibility and not hard facts",
@@ -217,7 +217,7 @@ function App() {
   const addNote = () => {
     // Laitetaan ehto, ettei lisätä osallistujan vastauksia jos pilottitesti on käynnissä.
     if (tableID === 0) {
-      answerList.push("pilot test answer")
+      answerList.push("practice test answer")
       answerList.push(answer1)
       setAnswer1("");
     }
@@ -305,9 +305,12 @@ function App() {
     <div className="App">
       <Box sx={{ padding: "60px 80px" }}>
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '18px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '10px' }}>Read this information before starting the experiment:</Typography>}
-        {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Each test has a time limit of 2 minutes. After this, the program automatically moves to the next phase. The first test is a pilot test, that shows how to perform the upcoming tasks. After this, there are four tasks to complete. Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. Remember to <b>not</b> press Enter -button while doing the tasks, unless you have filled out all of the information you intended to fill. Do not refresh the page at any point. <b>When you are done, leave the page open without closing or refreshing.</b> </Typography>}
+        {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Each test has a time limit of 10 minutes. After this, the program automatically moves to the next phase. If you are ready before the time expires, you can press the button on the bottom of the page to move forward. <b>Do not press the button before finishing your answers!</b></Typography>}
+        {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>The first test is a practice test, that shows how to perform the upcoming tasks. After this, there are <b>three</b> tasks to complete. Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. If you do not know the answer, do not guess, instead leave the answer blank.</Typography>}
+        {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Do not refresh the page at any point. When you are done, leave the page open without closing or refreshing.</Typography>}
+
         {isIntro ? (
-          <Button onClick={handleButtonClick}>Start the pilot test</Button>
+          <Button onClick={handleButtonClick}>Start the practice test</Button>
         ) : (
           isVisible && tableID < 4 && <div>
             <span><p>{minutes} minutes and {seconds} seconds left</p></span>
@@ -371,11 +374,13 @@ function App() {
               <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice4}</Typography>
               {!isPilot && <input value={answer6} onChange={formHandler6} />}
             </div>
-            {isPilot && tableID === 1 ? (<Button onClick={handleButtonClick}>Move to the experiment</Button>) 
+            {isPilot ? (<Button onClick={handleButtonClick}>Move to the experiment</Button>) 
             : (<Button onClick={handleButtonClick}>Move to the next phase</Button>) }
           </div>
         )}
-        {!isVisible && !isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for text {tableID + 1}. Please press Enter -button to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for test {tableID}. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for practice test. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && <Button onClick={handleButtonClick}>Move to the next phase</Button>}
         {isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Experiment ended. Thank you for participating.</Typography>}
       </Box>
     </div>
