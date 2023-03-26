@@ -86,7 +86,7 @@ function App() {
       d4Choice3: "C: where he grew up.",
       d4Choice4: "D: (all of the above)",
 
-      description5: "Kilian partly owes his incredible fitness to...",
+      description5: "His training includes...",
       d5Choice1: "A: psychological preparation.",
       d5Choice2: "B: making sure he drinks enough water.",
       d5Choice3: "C: trying to reduce his recovery time.",
