@@ -286,12 +286,14 @@ function App() {
           const updateMinutes = setTimeout(() => {
             setSeconds(59);
             setMinutes(minutes - 1);
+            //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
           }, 980);
           return () => clearTimeout(updateMinutes);
         }
         else {
           const updateSeconds = setTimeout(() => {
             setSeconds(seconds - 1);
+            //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
           }, 980);
 
           return () => clearTimeout(updateSeconds);
