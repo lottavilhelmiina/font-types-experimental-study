@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react'
 import { Typography, Button } from '@mui/material'
-import useEventListener from '@use-it/event-listener'
 import { Box } from '@mui/system';
 
 const ENTER_KEY = ['13', 'Enter'];
