@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react'
-import { Typography } from '@mui/material'
+import { Typography, Button } from '@mui/material'
 import useEventListener from '@use-it/event-listener'
 import { Box } from '@mui/system';
 
@@ -241,47 +241,44 @@ function App() {
     }
   }
 
-  function handler({ key }) {
-    if (ENTER_KEY.includes(String(key))) {
-      if (isIntro === true) {
-        setIsIntro(false);
-        setIsPilot(true);
 
-        const timer = setTimeout(() => {
-          setIsVisible(false);
+  const handleButtonClick = (event) => {
+    if (isIntro === true) {
+      setIsIntro(false);
+      setIsPilot(true);
+
+      const timer = setTimeout(() => {
+        setIsVisible(false);
 
 
-        }, 600000);
+      }, 600000);
 
-        return () => clearTimeout(timer);
-      }
-      else {
-        // Update state with the input value
+      return () => clearTimeout(timer);
+    }
+    // Update state with the input value
 
-        if (tableID === 3) {
-          setIsEnd(true);
-          console.log("Participant 1");
-          console.log(answerList);
-        }
+    if (tableID === 3) {
+      setIsEnd(true);
+      setIsVisible(false);
+      console.log("Participant 1");
+      console.log(answerList);
+    }
+    else {
+      addNote();
+      setIsPilot(false);
+      setTableID(tableID + 1);
+      setFontID(fontID + 1);
+      setIsVisible(true);
+      setMinutes(10)
+      setSeconds(0)
 
-        addNote();
-        setIsPilot(false);
-        setTableID(tableID + 1);
-        setFontID(fontID + 1);
-        setIsVisible(true);
-        setMinutes(10)
-        setSeconds(0)
+      const secondTimer = setTimeout(() => {
+        setIsVisible(false);
+      }, 600000);
 
-        const secondTimer = setTimeout(() => {
-          setIsVisible(false);
-        }, 600000);
-
-        return () => clearTimeout(secondTimer);
-        
-      }
+      return () => clearTimeout(secondTimer);
     }
   }
-  useEventListener('keydown', handler);
 
 
   React.useEffect(() => {
@@ -299,7 +296,7 @@ function App() {
           const updateSeconds = setTimeout(() => {
             setSeconds(seconds - 1);
           }, 980);
-          
+
           return () => clearTimeout(updateSeconds);
         }
       }
@@ -313,11 +310,10 @@ function App() {
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '18px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '10px' }}>Read this information before starting the experiment:</Typography>}
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Each test has a time limit of 2 minutes. After this, the program automatically moves to the next phase. The first test is a pilot test, that shows how to perform the upcoming tasks. After this, there are four tasks to complete. Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. Remember to <b>not</b> press Enter -button while doing the tasks, unless you have filled out all of the information you intended to fill. Do not refresh the page at any point. <b>When you are done, leave the page open without closing or refreshing.</b> </Typography>}
         {isIntro ? (
-          <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '18px', color: '#1A1A1A' }}>
-            When you are ready to start the experiment, press Enter-key.
-          </Typography>
+          <Button onClick={handleButtonClick}>Start the pilot test</Button>
         ) : (
           isVisible && tableID < 4 && <div>
+            <span><p>{minutes} minutes and {seconds} seconds left</p></span>
             <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
             <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg1}</Typography>
             <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg2}</Typography>
@@ -378,10 +374,11 @@ function App() {
               <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice4}</Typography>
               {!isPilot && <input value={answer6} onChange={formHandler6} />}
             </div>
-            <span><p>{minutes} minutes and {seconds} seconds left</p></span>
+            {isPilot && tableID === 1 ? (<Button onClick={handleButtonClick}>Move to the experiment</Button>) 
+            : (<Button onClick={handleButtonClick}>Move to the next phase</Button>) }
           </div>
         )}
-        {!isVisible && tableID < 4 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for text {tableID + 1}. Please press Enter -button to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for text {tableID + 1}. Please press Enter -button to move forward, when you are ready.</Typography>}
         {isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Experiment ended. Thank you for participating.</Typography>}
       </Box>
     </div>
