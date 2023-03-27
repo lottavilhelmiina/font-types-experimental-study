@@ -220,15 +220,21 @@ function App() {
       answerList.push("practice test answer")
       answerList.push(answer1)
       setAnswer1("");
+      console.log(tableID);
+      console.log(answerList);
     }
     else {
       answerList.push("answers to Q" + (tableID))
+      console.log(tableID);
+      
       answerList.push(answer1)
       answerList.push(answer2)
       answerList.push(answer3)
       answerList.push(answer4)
       answerList.push(answer5)
       answerList.push(answer6)
+      console.log(answerList);
+      
       setAnswer1("");
       setAnswer2("");
       setAnswer3("");
@@ -237,7 +243,6 @@ function App() {
       setAnswer6("");
     }
   }
-
 
   const handleButtonClick = (event) => {
     if (isIntro === true) {
@@ -277,7 +282,6 @@ function App() {
     }
   }
 
-
   React.useEffect(() => {
 
     if (!isIntro && isVisible) {
@@ -301,7 +305,6 @@ function App() {
       }
     }
   }, [seconds, minutes, isIntro, isVisible]);
-
 
   return (
     <div className="App">
