@@ -240,6 +240,7 @@ function App() {
 
 
   const handleButtonClick = (event) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (isIntro === true) {
       setIsIntro(false);
       setIsPilot(true);
@@ -310,7 +311,7 @@ function App() {
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Do not refresh the page at any point. When you are done, leave the page open without closing or refreshing.</Typography>}
 
         {isIntro ? (
-          <Button onClick={handleButtonClick}>Start the practice test</Button>
+          <Button variant='contained' onClick={handleButtonClick}>Start the practice test</Button>
         ) : (
           isVisible && tableID < 4 && <div>
             <span><p>{minutes} minutes and {seconds} seconds left</p></span>
@@ -374,13 +375,13 @@ function App() {
               <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice4}</Typography>
               {!isPilot && <input value={answer6} onChange={formHandler6} />}
             </div>
-            {isPilot ? (<Button onClick={handleButtonClick}>Move to the experiment</Button>) 
-            : (<Button onClick={handleButtonClick}>Move to the next phase</Button>) }
+            {isPilot ? (<Button variant='contained' onClick={handleButtonClick}>Move to the experiment</Button>) 
+            : (<Button variant='contained' sx={{mt: 1}} onClick={handleButtonClick}>Move to the next phase</Button>) }
           </div>
         )}
         {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for test {tableID}. Press the button below to move forward, when you are ready.</Typography>}
         {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for practice test. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && <Button onClick={handleButtonClick}>Move to the next phase</Button>}
+        {!isVisible && !isEnd && <Button variant='contained' onClick={handleButtonClick}>Move to the next phase</Button>}
         {isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Experiment ended. Thank you for participating.</Typography>}
       </Box>
     </div>
