@@ -1,12 +1,12 @@
 import React from 'react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Typography, Button, TextField } from '@mui/material'
 import { Box } from '@mui/system';
+import axios from 'axios'
 
 function App() {
   const [minutes, setMinutes] = React.useState(10);
   const [seconds, setSeconds] = React.useState(0);
-
   const [textTable, setTextTable] = useState([
     {
       header: "The state of the world",
@@ -186,14 +186,26 @@ function App() {
   const [answer4, setAnswer4] = useState('');
   const [answer5, setAnswer5] = useState('');
   const [answer6, setAnswer6] = useState('');
+
   const [tableID, setTableID] = useState(0);
-  const [fontID, setFontID] = useState(0);
+
   const [isVisible, setIsVisible] = useState(true);
   const [isIntro, setIsIntro] = useState(true);
   const [isPilot, setIsPilot] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
 
-  const [answerList, setAnswerList] = useState([]);
+  const [answers, setAnswers] = useState([]);
+
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/answers')
+      .then(response => {
+        console.log('promise fulfilled')
+        setAnswers(response.data)
+        console.log(answers);
+      })
+  }, [])
 
   const formHandler1 = (event) => {
     setAnswer1(event.target.value);
@@ -217,19 +229,35 @@ function App() {
   const addNote = () => {
     // Laitetaan ehto, ettei lisätä osallistujan vastauksia jos pilottitesti on käynnissä.
     if (tableID === 0) {
-      answerList.push("practice test answer") 
-      answerList.push(answer1)
+      const practiceObject = {
+        description: "practice task",
+        participantID: 1,
+        question1: answer1
+      }
+      axios
+        .post('http://localhost:3001/answers', practiceObject)
+        .then(response => {
+          console.log(response)
+        })
       setAnswer1("");
     }
     else {
-      answerList.push("answers to Q" + (tableID))
-      answerList.push(answer1)
-      answerList.push(answer2)
-      answerList.push(answer3)
-      answerList.push(answer4)
-      answerList.push(answer5)
-      answerList.push(answer6)
-      
+      const noteObject = {
+        description: "task " + tableID,
+        participantID: 1,
+        question1: answer1,
+        question2: answer2,
+        question3: answer3,
+        question4: answer4,
+        question5: answer5,
+        question6: answer6
+      }
+      axios
+        .post('http://localhost:3001/answers', noteObject)
+        .then(response => {
+          console.log(response)
+        })
+
       setAnswer1("");
       setAnswer2("");
       setAnswer3("");
@@ -240,9 +268,11 @@ function App() {
   }
 
   const handleTestButtonClick = (event) => {
-setIsVisible(false);
+    setIsVisible(false);
   }
+
   const handleButtonClick = (event) => {
+    event.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (isIntro === true) {
       setIsIntro(false);
@@ -261,13 +291,12 @@ setIsVisible(false);
       setIsEnd(true);
       setIsVisible(false);
       console.log("Participant 1");
-      console.log(answerList);
+      console.log(answers);
     }
     else {
       addNote();
       setIsPilot(false);
       setTableID(tableID + 1);
-      setFontID(fontID + 1);
       setIsVisible(true);
       setMinutes(10)
       setSeconds(0)
@@ -280,7 +309,7 @@ setIsVisible(false);
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
 
     if (!isIntro && isVisible) {
       if (seconds > 0 || minutes > 0) {
@@ -306,16 +335,16 @@ setIsVisible(false);
 
   return (
     <div className="App">
-      <Box sx={{ padding: "60px 80px" }}>
+      <Box sx={{ padding: "60px 250px" }}>
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '18px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '10px' }}>Read this information before starting the experiment:</Typography>}
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Each test has a time limit of 10 minutes. After this, the program automatically moves to the next phase. If you are ready before the time expires, you can press the button on the bottom of the page to move forward. <b>Do not press the button before finishing your answers!</b></Typography>}
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>The first test is a practice test, that shows how to perform the upcoming tasks. After this, there are <b>three</b> tasks to complete. Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. If you do not know the answer, do not guess, instead leave the answer blank.</Typography>}
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Do not refresh the page at any point. When you are done, leave the page open without closing or refreshing.</Typography>}
 
         {isIntro ? (
-
-          <Button variant='contained' onClick={handleButtonClick}>Start the practice test</Button>
-
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button variant='contained' onClick={handleButtonClick}>Start the practice test</Button>
+          </Box>
         ) : (
           isVisible && tableID < 4 && <div>
             <span><p>{minutes} minutes and {seconds} seconds left</p></span>
@@ -338,64 +367,68 @@ setIsVisible(false);
             <div>
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '65px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>Questions</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', marginBottom: '10px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], marginBottom:'10px' }}>{questionText[tableID].d1Choice4}</Typography>
-              <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer1} onChange={formHandler1} />
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d1Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d1Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d1Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginBottom: '10px', color: '#1A1A1A' }}>{questionText[tableID].d1Choice4}</Typography>
+              <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer1} onChange={formHandler1} />
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer2} onChange={formHandler2} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d2Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d2Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d2Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d2Choice4}</Typography>
+              {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer2} onChange={formHandler2} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer3} onChange={formHandler3} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d3Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d3Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d3Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d3Choice4}</Typography>
+              {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer3} onChange={formHandler3} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description4}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer4} onChange={formHandler4} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d4Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d4Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d4Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d4Choice4}</Typography>
+              {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer4} onChange={formHandler4} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description5}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer5} onChange={formHandler5} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d5Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d5Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d5Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d5Choice4}</Typography>
+              {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer5} onChange={formHandler5} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description6}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer6} onChange={formHandler6} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d6Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d6Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d6Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d6Choice4}</Typography>
+              {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer6} onChange={formHandler6} />}
             </div>
 
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            {isPilot ? (<Button sx={{marginTop: '40px'}} variant='contained' onClick={handleTestButtonClick}>Move to the experiment</Button>) 
-            : (<Button sx={{marginTop: '40px', mt: 1}} variant='contained' onClick={handleTestButtonClick}>Move to the next phase</Button>)}
-          </Box>
+              {isPilot ? (<Button sx={{ marginTop: '40px' }} variant='contained' onClick={handleTestButtonClick}>Move to the experiment</Button>)
+                : (<Button sx={{ marginTop: '40px', mt: 1 }} variant='contained' onClick={handleTestButtonClick}>Move to the next phase</Button>)}
+            </Box>
 
           </div>
         )}
 
-        {!isVisible && !isEnd && tableID < 1 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && tableID > 0 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Test {tableID} has been completed. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && <Button variant='contained' onClick={handleButtonClick}>Move to the next phase</Button>}
-
+        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          {!isVisible && !isEnd && tableID < 3 && <Button variant='contained' onClick={handleButtonClick}>Start test number {tableID + 1}</Button>}
+          {!isVisible && !isEnd && tableID === 3 && <Button variant='contained' onClick={handleButtonClick}>Finish the experiment</Button>}
+        </Box>
         {isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Experiment ended. Thank you for participating.</Typography>}
       </Box>
     </div>
