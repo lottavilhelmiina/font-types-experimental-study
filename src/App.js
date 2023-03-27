@@ -220,20 +220,15 @@ function App() {
       answerList.push("practice test answer") 
       answerList.push(answer1)
       setAnswer1("");
-      console.log(tableID);
-      console.log(answerList);
     }
     else {
       answerList.push("answers to Q" + (tableID))
-      console.log(tableID);
-      
       answerList.push(answer1)
       answerList.push(answer2)
       answerList.push(answer3)
       answerList.push(answer4)
       answerList.push(answer5)
       answerList.push(answer6)
-      console.log(answerList);
       
       setAnswer1("");
       setAnswer2("");
@@ -261,6 +256,7 @@ function App() {
     // Update state with the input value
 
     if (tableID === 3) {
+      addNote();
       setIsEnd(true);
       setIsVisible(false);
       console.log("Participant 1");
@@ -345,42 +341,42 @@ function App() {
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice2}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice3}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID], marginBottom:'10px' }}>{questionText[tableID].d1Choice4}</Typography>
-              <TextField sx={{width:'40px'}} size="small" value={answer1} onChange={formHandler1} />
+              <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer1} onChange={formHandler1} />
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description2}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice1}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice2}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice3}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer2} onChange={formHandler2} />}
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer2} onChange={formHandler2} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description3}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice1}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice2}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice3}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer3} onChange={formHandler3} />}
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer3} onChange={formHandler3} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description4}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice1}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice2}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice3}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer4} onChange={formHandler4} />}
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer4} onChange={formHandler4} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description5}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice1}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice2}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice3}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer5} onChange={formHandler5} />}
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer5} onChange={formHandler5} />}
 
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description6}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice1}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice2}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice3}</Typography>
               <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice4}</Typography>
-              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer6} onChange={formHandler6} />}
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" autoComplete='off' value={answer6} onChange={formHandler6} />}
             </div>
 
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
