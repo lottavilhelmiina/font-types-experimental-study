@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react'
-import { Typography, Button } from '@mui/material'
+import { Typography, Button, TextField } from '@mui/material'
 import { Box } from '@mui/system';
 
 function App() {
@@ -312,77 +312,79 @@ function App() {
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Do not refresh the page at any point. When you are done, leave the page open without closing or refreshing.</Typography>}
 
         {isIntro ? (
-          <Button onClick={handleButtonClick}>Start the practice test</Button>
+          <Button variant="contained" onClick={handleButtonClick}>Start the practice test</Button>
         ) : (
           isVisible && tableID < 4 && <div>
             <span><p>{minutes} minutes and {seconds} seconds left</p></span>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg1}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg2}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg3}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg4}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg5}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg6}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg7}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg8}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg9}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg10}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg11}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg12}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg13}</Typography>
-            <Typography sx={{ fontFamily: fontTable[fontID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg14}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg1}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg2}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg3}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg4}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg5}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg6}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg7}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg8}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg9}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg10}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg11}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg12}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg13}</Typography>
+            <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg14}</Typography>
 
             <div>
-              <Typography sx={{ fontFamily: fontTable[fontID], marginTop: '65px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>Questions</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d1Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d1Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d1Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d1Choice4}</Typography>
-              <input value={answer1} onChange={formHandler1} />
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '65px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>Questions</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', marginBottom: '10px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d1Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginBottom:'10px' }}>{questionText[tableID].d1Choice4}</Typography>
+              <TextField sx={{width:'40px'}} size="small" value={answer1} onChange={formHandler1} />
 
-              <Typography sx={{ fontFamily: fontTable[fontID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d2Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d2Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d2Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d2Choice4}</Typography>
-              {!isPilot && <input value={answer2} onChange={formHandler2} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d2Choice4}</Typography>
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer2} onChange={formHandler2} />}
 
-              <Typography sx={{ fontFamily: fontTable[fontID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d3Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d3Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d3Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d3Choice4}</Typography>
-              {!isPilot && <input value={answer3} onChange={formHandler3} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d3Choice4}</Typography>
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer3} onChange={formHandler3} />}
 
-              <Typography sx={{ fontFamily: fontTable[fontID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description4}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d4Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d4Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d4Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d4Choice4}</Typography>
-              {!isPilot && <input value={answer4} onChange={formHandler4} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d4Choice4}</Typography>
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer4} onChange={formHandler4} />}
 
-              <Typography sx={{ fontFamily: fontTable[fontID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description5}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d5Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d5Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d5Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d5Choice4}</Typography>
-              {!isPilot && <input value={answer5} onChange={formHandler5} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description5}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d5Choice4}</Typography>
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer5} onChange={formHandler5} />}
 
-              <Typography sx={{ fontFamily: fontTable[fontID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description6}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[fontID] }}>{questionText[tableID].d6Choice4}</Typography>
-              {!isPilot && <input value={answer6} onChange={formHandler6} />}
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description6}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID] }}>{questionText[tableID].d6Choice4}</Typography>
+              {!isPilot && <TextField sx={{width:'40px'}} size="small" value={answer6} onChange={formHandler6} />}
             </div>
-            {isPilot ? (<Button onClick={handleButtonClick}>Move to the experiment</Button>) 
-            : (<Button onClick={handleButtonClick}>Move to the next phase</Button>) }
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            {isPilot ? (<Button sx={{marginTop: '40px'}} variant="contained" onClick={handleButtonClick}>Move to the experiment</Button>) 
+            : (<Button sx={{marginTop: '40px'}} variant="contained" onClick={handleButtonClick}>Move to the next phase</Button>) }
+          </Box>
           </div>
         )}
         {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for test {tableID}. Press the button below to move forward, when you are ready.</Typography>}
         {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for practice test. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && <Button onClick={handleButtonClick}>Move to the next phase</Button>}
+        {!isVisible && !isEnd && <Button variant="contained" onClick={handleButtonClick}>Move to the next phase</Button>}
         {isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Experiment ended. Thank you for participating.</Typography>}
       </Box>
     </div>
