@@ -250,8 +250,6 @@ setIsVisible(false);
 
       const timer = setTimeout(() => {
         setIsVisible(false);
-
-
       }, 600000);
 
       return () => clearTimeout(timer);
@@ -389,8 +387,12 @@ setIsVisible(false);
 
           </div>
         )}
-        {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has exceeded for test {tableID}. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has exceeded for practice test. Press the button below to move forward, when you are ready.</Typography>}
+
+        {!isVisible && !isEnd && tableID < 1 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to move forward, when you are ready.</Typography>}
+
+        {!isVisible && !isEnd && tableID > 0 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Test {tableID} has been completed. Press the button below to move forward, when you are ready.</Typography>}
 
         {!isVisible && !isEnd && <Button variant='contained' onClick={handleButtonClick}>Move to the next phase</Button>}
 
