@@ -217,7 +217,7 @@ function App() {
   const addNote = () => {
     // Laitetaan ehto, ettei lisätä osallistujan vastauksia jos pilottitesti on käynnissä.
     if (tableID === 0) {
-      answerList.push("practice test answer")
+      answerList.push("practice test answer") 
       answerList.push(answer1)
       setAnswer1("");
     }
