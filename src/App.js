@@ -320,7 +320,9 @@ setIsVisible(false);
 
         ) : (
           isVisible && tableID < 4 && <div>
-            <span><p>{minutes} minutes and {seconds} seconds left</p></span>
+            <div class="container">
+            <span><p id="timer">{minutes} minutes and {seconds} seconds left</p></span>
+            </div>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg1}</Typography>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg2}</Typography>
