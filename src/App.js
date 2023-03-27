@@ -239,6 +239,9 @@ function App() {
     }
   }
 
+  const handleTestButtonClick = (event) => {
+setIsVisible(false);
+  }
   const handleButtonClick = (event) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (isIntro === true) {
@@ -380,14 +383,14 @@ function App() {
             </div>
 
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            {isPilot ? (<Button sx={{marginTop: '40px'}} variant='contained' onClick={handleButtonClick}>Move to the experiment</Button>) 
-            : (<Button sx={{marginTop: '40px', mt: 1}} variant='contained' onClick={handleButtonClick}>Move to the next phase</Button>)}
+            {isPilot ? (<Button sx={{marginTop: '40px'}} variant='contained' onClick={handleTestButtonClick}>Move to the experiment</Button>) 
+            : (<Button sx={{marginTop: '40px', mt: 1}} variant='contained' onClick={handleTestButtonClick}>Move to the next phase</Button>)}
           </Box>
 
           </div>
         )}
-        {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for test {tableID}. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has been exceeded for practice test. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has exceeded for test {tableID}. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Time limit has exceeded for practice test. Press the button below to move forward, when you are ready.</Typography>}
 
         {!isVisible && !isEnd && <Button variant='contained' onClick={handleButtonClick}>Move to the next phase</Button>}
 
