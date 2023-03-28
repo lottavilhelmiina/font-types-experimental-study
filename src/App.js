@@ -208,22 +208,80 @@ function App() {
   }, [])
 
   const formHandler1 = (event) => {
-    setAnswer1(event.target.value);
+    // Handle input to include only one capital LETTER.
+    event.target.value = event.target.value.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
+
+    // If practice task, allow only values A-C and "" as input.
+    if (isPilot) {
+      const re = /^[A-C]+$/;
+      if (event.target.value === "" || re.test(event.target.value)) {
+        setAnswer1(event.target.value);
+      }
+    }
+    // In other cases allow only values A-D and "" as input.
+    else {
+      // Allow only values A-D and "" as input.
+      const re = /^[A-D]+$/;
+      if (event.target.value === "" || re.test(event.target.value)) {
+        setAnswer1(event.target.value);
+      }
+    }
   }
+
+
   const formHandler2 = (event) => {
-    setAnswer2(event.target.value);
+    // Handle input to include only one capital LETTER.
+    event.target.value = event.target.value.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
+
+    // Allow only values A-D and "" as input.
+    const re = /^[A-D]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setAnswer2(event.target.value);
+    }
   }
+
   const formHandler3 = (event) => {
-    setAnswer3(event.target.value);
+    // Handle input to include only one capital LETTER.
+    event.target.value = event.target.value.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
+
+    // Allow only values A-D and "" as input.
+    const re = /^[A-D]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setAnswer3(event.target.value);
+    }
   }
+
   const formHandler4 = (event) => {
-    setAnswer4(event.target.value);
+    // Handle input to include only one capital LETTER.
+    event.target.value = event.target.value.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
+
+    // Allow only values A-D and "" as input.
+    const re = /^[A-D]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setAnswer4(event.target.value);
+    }
   }
+
   const formHandler5 = (event) => {
-    setAnswer5(event.target.value);
+    // Handle input to include only one capital LETTER.
+    event.target.value = event.target.value.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
+
+    // Allow only values A-D and "" as input.
+    const re = /^[A-D]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setAnswer5(event.target.value);
+    }
   }
+
   const formHandler6 = (event) => {
-    setAnswer6(event.target.value);
+    // Handle input to include only one capital LETTER.
+    event.target.value = event.target.value.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
+
+    // Allow only values A-D and "" as input.
+    const re = /^[A-D]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setAnswer6(event.target.value);
+    }
   }
 
   const addNote = () => {
@@ -278,6 +336,7 @@ function App() {
       setIsIntro(false);
       setIsPilot(true);
 
+
       const timer = setTimeout(() => {
         setIsVisible(false);
       }, 600000);
@@ -318,14 +377,14 @@ function App() {
             setSeconds(59);
             setMinutes(minutes - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 980);
+          }, 970);
           return () => clearTimeout(updateMinutes);
         }
         else {
           const updateSeconds = setTimeout(() => {
             setSeconds(seconds - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 980);
+          }, 970);
 
           return () => clearTimeout(updateSeconds);
         }
@@ -348,7 +407,7 @@ function App() {
         ) : (
           isVisible && tableID < 4 && <div>
             <div class="container">
-            <span><p id="timer">{minutes} minutes and {seconds} seconds left</p></span>
+              <span><p id="timer">{minutes} minutes and {seconds} seconds left</p></span>
             </div>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg1}</Typography>
@@ -427,10 +486,12 @@ function App() {
 
         {!isVisible && !isEnd && tableID > 0 && tableID === 3 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
         {!isVisible && !isEnd && tableID > 0 && tableID === 3 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
+
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {!isVisible && !isEnd && tableID < 3 && <Button variant='contained' onClick={handleButtonClick}>Start test number {tableID + 1}</Button>}
           {!isVisible && !isEnd && tableID === 3 && <Button variant='contained' onClick={handleButtonClick}>Finish the experiment</Button>}
         </Box>
+
         {isEnd && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A' }}>Experiment ended. Thank you for participating.</Typography>}
       </Box>
     </div>
