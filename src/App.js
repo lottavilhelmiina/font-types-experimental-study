@@ -5,12 +5,16 @@ import { Box } from '@mui/system';
 import axios from 'axios'
 
 function App() {
-  const [minutes, setMinutes] = React.useState(10);
+  const [minutes, setMinutes] = React.useState(2);
   const [seconds, setSeconds] = React.useState(0);
   const [textTable, setTextTable] = useState([
     {
       header: "The state of the world",
-      pg1: "If your view of the world comes from watching the news and reading newspapers, you could be forgiven for lying awake at night worrying about the future. Apparently, rising violence and population rates mean humans are both killing each other in ever larger numbers and being born at rates the world's resources can't sustain. To make matters worse, all the wealth is concentrated on a handful of people in the world's richest countries. People in low-income countries live in poverty while the West gets richer. Depressing, isn't it?"
+      pg1: "If your view of the world comes from watching the news and reading newspapers, you could be forgiven for lying awake at night worrying about the future. Apparently, rising violence and population rates mean humans are both killing each other in ever larger numbers and being born at rates the world's resources can't sustain. To make matters worse, all the wealth is concentrated on a handful of people in the world's richest countries. People in low-income countries live in poverty while the West gets richer. Depressing, isn't it?",
+      description1: "Question 1: What does the word 'apparently' in the first paragraph tell us about the rise in violence we see in the news?",
+      d1Choice1: "A: The rise is obviously true.",
+      d1Choice2: "B: The rise seems true but evidence might show it isn't.",
+      d1Choice3: "C: The rise seems false but evidence might show it's true."
     },
     {
       header: "A biography of Kilian Jornet",
@@ -23,45 +27,8 @@ function App() {
       pg7: "He was 13 when he says he started to take it 'seriously' and trained with the Ski Mountaineering Technical Centre (CTEMC) in Catalonia, entering competitions and working with a coach. At 18, he took over his own ski-mountaineering and trail-running training, with a schedule that only allows a couple of weeks of rest a year. He does as many as 1,140 hours of endurance training a year, plus strength training and technical workouts as well as specific training in the week before a race. For his record-breaking ascent and descent of the Matterhorn, he prepared by climbing the mountain ten times until he knew every detail of it, even including where the sun would be shining at every part of the day.",
       pg8: "Sleeping only seven hours a night, Kilian Jornet seems almost superhuman. His resting heartbeat is extremely low at 33 beats per minute, compared with the average man's 60 per minute or an athlete's 40 per minute. He breathes more efficiently than average people too, taking in more oxygen per breath, and he has a much faster recovery time after exercise as his body quickly breaks down lactic acid – the acid in muscles that causes pain after exercise.",
       pg9: "All this is thanks to his childhood in the mountains and to genetics, but it is his mental strength that sets him apart. He often sets himself challenges to see how long he can endure difficult conditions in order to truly understand what his body and mind can cope with. For example, he almost gave himself kidney failure after only drinking 3.5 litres of water on a 100km run in temperatures of around 40°C.",
-      pg10: "It would take a book to list all the races and awards he's won and the mountains he's climbed. And even here, Kilian’s achievements exceed the average person as, somehow, he finds time to record his career on his blog and has written three books, Run or Die, The Invisible Border and Summits of My Life."
-    },
-    {
-      header: "A threat to bananas",
-      pg1: "In the 1950s, Central American commercial banana growers were facing the death of their most lucrative product, the Gros Michel banana, known as Big Mike. And now it’s happening again to Big Mike’s successor – the Cavendish.",
-      pg2: "With its easily transported, thick-skinned and sweet-tasting fruit, the Gros Michel banana plant dominated the plantations of Central America. United Fruit, the main grower and exporter in South America at the time, mass-produced its bananas in the most efficient way possible: it cloned shoots from the stems of plants instead of growing plants from seeds, and cultivated them in densely packed fields.",
-      pg3: "Unfortunately, these conditions are also perfect for the spread of the fungus Fusarium oxysporum f. sp. cubense, which attacks the plant’s roots and prevents it from transporting water to the stem and leaves. The TR-1 strain of the fungus was resistant to crop sprays and travelled around on boots or the tyres of trucks, slowly infecting plantations across the region. In an attempt to escape the fungus, farmers abandoned infected fields, flooded them and then replanted crops somewhere else, often cutting down rainforest to do so.",
-      pg4: "Their efforts failed. So, instead, they searched for a variety of banana that the fungus didn’t affect. They found the Cavendish, as it was called, in the greenhouse of a British duke. It wasn’t as well suited to shipping as the Gros Michel, but its bananas tasted good enough to keep consumers happy. Most importantly, TR-1 didn’t seem to affect it. In a few years, United Fruit had saved itself from bankruptcy by filling its plantations with thousands of the new plants, copying the same monoculture growing conditions Gros Michel had thrived in.",
-      pg5: "While the operation was a huge success for the Latin American industry, the Cavendish banana itself is far from safe. In 2014, South East Asia, another major banana producer, exported four million tons of Cavendish bananas. But, in 2015, its exports had dropped by 46 per cent thanks to a combination of another strain of the fungus, TR-4, and bad weather.",
-      pg6: "Growing practices in South East Asia haven’t helped matters. Growers can’t always afford the expensive lab-based methods to clone plants from shoots without spreading the disease. Also, they often aren’t strict enough about cleaning farm equipment and quarantining infected fields. As a result, the fungus has spread to Australia, the Middle East and Mozambique – and Latin America, heavily dependent on its monoculture Cavendish crops, could easily be next.",
-      pg7: "Racing against the inevitable, scientists are working on solving the problem by genetically modifying the Cavendish with genes from TR-4-resistant banana species. Researchers at the Queensland University of Technology have successfully grown two kinds of modified plant which have remained resistant for three years so far. But some experts think this is just a sophisticated version of the same temporary solution the original Cavendish provided. If the new bananas are planted in the same monocultures as the Cavendish and the Gros Michel before it, the risk is that another strain of the disease may rise up to threaten the modified plants too."
-    },
-    {
-      header: "Managing a problem",
-      pg1: "To: Karl Anderson",
-      pg2: "Date: 17 October",
-      pg3: "Subject: Support for Judy",
-      pg4: "Dear Karl,",
-      pg5: "I received a call from Judy a couple of days ago to discuss some of the issues that she was having and I thought I'd give you a heads-up on what was said, seeing that you are Judy's project team leader.",
-      pg6: "Judy really enjoys working with you and the team and finds the project very interesting, but I think she's feeling a bit lost and struggling to see the big picture. It seems that she's been given a fair amount of autonomy to carry out the tasks that you've given her, and of course this level of delegation is not uncommon in your branch. But I believe in her Tokyo office, she is used to a bit more managerial direction and guidance and so is finding this international project quite daunting.",
-      pg7: "When I asked her about meeting her deadlines, she mentioned that due to the recent changes to the project timeline, her goalposts have been moved, and she doesn't seem to really understand why this has happened. Bearing in mind that she's also facing simultaneous deadlines from her department in Tokyo, we can presume that she might be feeling a bit stretched.",
-      pg8: "Looking ahead, I was wondering if we could make it easier for Judy by offering her more direction when setting her tasks, at least until she learns the ropes and gets used to working unsupervised. I think she'd also appreciate you giving her a clearer idea on how her role in the team fits into the overview of things. Do you think you could maybe outline the group and individual targets at your next team meeting and that way, everyone not only gets a reminder of the end goal, but each team member, including Judy, might have a more holistic view of the whole project?",
-      pg9: "I was also thinking it might help to touch base with her every so often to make sure that she's up to date with any changes to the overall plan of attack. In the meantime, I'll write to her manager in the Tokyo office and see how aware they are of the deadlines you've given her, and if they could in some way review her responsibilities and co-ordinate her tasks so that she doesn't constantly feel pulled in both directions.",
-      pg10: "Judy is an extremely conscientious worker and is eager to contribute positively to the team. Personally, I think she is someone with high potential and will be an asset to our international projects if properly mentored. I'm keen to know your thoughts on the matter and am open to any suggestions on how we could better support Judy so that she has a more smooth-sailing experience on the team.",
-      pg11: "Best regards,",
-      pg12: "Jo Backhouse",
-      pg13: "Head of Department",
-      pg14: "International Projects"
-    }
-  ]);
-
-  const [questionText, setQuestionText] = useState([
-    {
-      description1: "Question 1: What does the word 'apparently' in the first paragraph tell us about the rise in violence we see in the news?",
-      d1Choice1: "A: The rise is obviously true.",
-      d1Choice2: "B: The rise seems true but evidence might show it isn't.",
-      d1Choice3: "C: The rise seems false but evidence might show it's true."
-    },
-    {
+      pg10: "It would take a book to list all the races and awards he's won and the mountains he's climbed. And even here, Kilian’s achievements exceed the average person as, somehow, he finds time to record his career on his blog and has written three books, Run or Die, The Invisible Border and Summits of My Life.",
+      
       description1: "Question 1: The majority of climbers on Everest...",
       d1Choice1: "A: need oxygen to finish their ascent.",
       d1Choice2: "B: are accompanied.",
@@ -99,6 +66,15 @@ function App() {
       d6Choice4: "D: another example of his impressive accomplishments.",
     },
     {
+      header: "A threat to bananas",
+      pg1: "In the 1950s, Central American commercial banana growers were facing the death of their most lucrative product, the Gros Michel banana, known as Big Mike. And now it’s happening again to Big Mike’s successor – the Cavendish.",
+      pg2: "With its easily transported, thick-skinned and sweet-tasting fruit, the Gros Michel banana plant dominated the plantations of Central America. United Fruit, the main grower and exporter in South America at the time, mass-produced its bananas in the most efficient way possible: it cloned shoots from the stems of plants instead of growing plants from seeds, and cultivated them in densely packed fields.",
+      pg3: "Unfortunately, these conditions are also perfect for the spread of the fungus Fusarium oxysporum f. sp. cubense, which attacks the plant’s roots and prevents it from transporting water to the stem and leaves. The TR-1 strain of the fungus was resistant to crop sprays and travelled around on boots or the tyres of trucks, slowly infecting plantations across the region. In an attempt to escape the fungus, farmers abandoned infected fields, flooded them and then replanted crops somewhere else, often cutting down rainforest to do so.",
+      pg4: "Their efforts failed. So, instead, they searched for a variety of banana that the fungus didn’t affect. They found the Cavendish, as it was called, in the greenhouse of a British duke. It wasn’t as well suited to shipping as the Gros Michel, but its bananas tasted good enough to keep consumers happy. Most importantly, TR-1 didn’t seem to affect it. In a few years, United Fruit had saved itself from bankruptcy by filling its plantations with thousands of the new plants, copying the same monoculture growing conditions Gros Michel had thrived in.",
+      pg5: "While the operation was a huge success for the Latin American industry, the Cavendish banana itself is far from safe. In 2014, South East Asia, another major banana producer, exported four million tons of Cavendish bananas. But, in 2015, its exports had dropped by 46 per cent thanks to a combination of another strain of the fungus, TR-4, and bad weather.",
+      pg6: "Growing practices in South East Asia haven’t helped matters. Growers can’t always afford the expensive lab-based methods to clone plants from shoots without spreading the disease. Also, they often aren’t strict enough about cleaning farm equipment and quarantining infected fields. As a result, the fungus has spread to Australia, the Middle East and Mozambique – and Latin America, heavily dependent on its monoculture Cavendish crops, could easily be next.",
+      pg7: "Racing against the inevitable, scientists are working on solving the problem by genetically modifying the Cavendish with genes from TR-4-resistant banana species. Researchers at the Queensland University of Technology have successfully grown two kinds of modified plant which have remained resistant for three years so far. But some experts think this is just a sophisticated version of the same temporary solution the original Cavendish provided. If the new bananas are planted in the same monocultures as the Cavendish and the Gros Michel before it, the risk is that another strain of the disease may rise up to threaten the modified plants too.",
+      
       description1: "Question 1: Mass-produced bananas are...",
       d1Choice1: "A: grown from seeds because it's efficient.",
       d1Choice2: "B: cloned because it's a fast and cheap way to grow them.",
@@ -136,6 +112,22 @@ function App() {
       d6Choice4: "D: Uninterested",
     },
     {
+      header: "Managing a problem",
+      pg1: "To: Karl Anderson",
+      pg2: "Date: 17 October",
+      pg3: "Subject: Support for Judy",
+      pg4: "Dear Karl,",
+      pg5: "I received a call from Judy a couple of days ago to discuss some of the issues that she was having and I thought I'd give you a heads-up on what was said, seeing that you are Judy's project team leader.",
+      pg6: "Judy really enjoys working with you and the team and finds the project very interesting, but I think she's feeling a bit lost and struggling to see the big picture. It seems that she's been given a fair amount of autonomy to carry out the tasks that you've given her, and of course this level of delegation is not uncommon in your branch. But I believe in her Tokyo office, she is used to a bit more managerial direction and guidance and so is finding this international project quite daunting.",
+      pg7: "When I asked her about meeting her deadlines, she mentioned that due to the recent changes to the project timeline, her goalposts have been moved, and she doesn't seem to really understand why this has happened. Bearing in mind that she's also facing simultaneous deadlines from her department in Tokyo, we can presume that she might be feeling a bit stretched.",
+      pg8: "Looking ahead, I was wondering if we could make it easier for Judy by offering her more direction when setting her tasks, at least until she learns the ropes and gets used to working unsupervised. I think she'd also appreciate you giving her a clearer idea on how her role in the team fits into the overview of things. Do you think you could maybe outline the group and individual targets at your next team meeting and that way, everyone not only gets a reminder of the end goal, but each team member, including Judy, might have a more holistic view of the whole project?",
+      pg9: "I was also thinking it might help to touch base with her every so often to make sure that she's up to date with any changes to the overall plan of attack. In the meantime, I'll write to her manager in the Tokyo office and see how aware they are of the deadlines you've given her, and if they could in some way review her responsibilities and co-ordinate her tasks so that she doesn't constantly feel pulled in both directions.",
+      pg10: "Judy is an extremely conscientious worker and is eager to contribute positively to the team. Personally, I think she is someone with high potential and will be an asset to our international projects if properly mentored. I'm keen to know your thoughts on the matter and am open to any suggestions on how we could better support Judy so that she has a more smooth-sailing experience on the team.",
+      pg11: "Best regards,",
+      pg12: "Jo Backhouse",
+      pg13: "Head of Department",
+      pg14: "International Projects",
+
       description1: "Question 1: Why is Jo writing to Karl?",
       d1Choice1: "A: To suggest that his management style is not suitable for the current members of his team",
       d1Choice2: "B: To let him know about the issues his team member is facing and help him manage them",
@@ -170,9 +162,10 @@ function App() {
       d6Choice1: "A: Mix positives in with the negatives",
       d6Choice2: "B: Focus on the solutions",
       d6Choice3: "C: Use language to show that she's expressing her own opinion or a possibility and not hard facts",
-      d6Choice4: "D: All of the above",
+      d6Choice4: "D: All of the above"
     }
-  ])
+  ]);
+
   const [fontTable, setFontTable] = useState([
     "Segoe UI",
     "San Francisco",
@@ -218,6 +211,7 @@ function App() {
         setAnswer1(event.target.value);
       }
     }
+
     // In other cases allow only values A-D and "" as input.
     else {
       // Allow only values A-D and "" as input.
@@ -339,7 +333,7 @@ function App() {
 
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 600000);
+      }, 120000);
 
       return () => clearTimeout(timer);
     }
@@ -357,12 +351,12 @@ function App() {
       setIsPilot(false);
       setTableID(tableID + 1);
       setIsVisible(true);
-      setMinutes(10)
+      setMinutes(2)
       setSeconds(0)
 
       const secondTimer = setTimeout(() => {
         setIsVisible(false);
-      }, 600000);
+      }, 120000);
 
       return () => clearTimeout(secondTimer);
     }
@@ -372,19 +366,19 @@ function App() {
 
     if (!isIntro && isVisible) {
       if (seconds > 0 || minutes > 0) {
-        if (seconds === 0) {
+        if (seconds < 1) {
           const updateMinutes = setTimeout(() => {
             setSeconds(59);
             setMinutes(minutes - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 970);
+          }, 1000);
           return () => clearTimeout(updateMinutes);
         }
         else {
           const updateSeconds = setTimeout(() => {
             setSeconds(seconds - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 970);
+          }, 1000);
 
           return () => clearTimeout(updateSeconds);
         }
@@ -427,46 +421,46 @@ function App() {
 
             <div>
               <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '65px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>Questions</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', marginBottom: '10px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d1Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d1Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d1Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], marginBottom: '10px', color: '#1A1A1A' }}>{questionText[tableID].d1Choice4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', marginBottom: '10px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].description1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d1Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d1Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d1Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginBottom: '10px', color: '#1A1A1A' }}>{textTable[tableID].d1Choice4}</Typography>
               <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer1} onChange={formHandler1} />
 
-              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d2Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d2Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d2Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d2Choice4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].description2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d2Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d2Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d2Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{textTable[tableID].d2Choice4}</Typography>
               {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer2} onChange={formHandler2} />}
 
-              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d3Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d3Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d3Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d3Choice4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].description3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d3Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d3Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d3Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{textTable[tableID].d3Choice4}</Typography>
               {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer3} onChange={formHandler3} />}
 
-              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description4}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d4Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d4Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d4Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d4Choice4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].description4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d4Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d4Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d4Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{textTable[tableID].d4Choice4}</Typography>
               {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer4} onChange={formHandler4} />}
 
-              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description5}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d5Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d5Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d5Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d5Choice4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].description5}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d5Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d5Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d5Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{textTable[tableID].d5Choice4}</Typography>
               {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer5} onChange={formHandler5} />}
 
-              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{questionText[tableID].description6}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d6Choice1}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d6Choice2}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{questionText[tableID].d6Choice3}</Typography>
-              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{questionText[tableID].d6Choice4}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], marginTop: '25px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].description6}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d6Choice1}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d6Choice2}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A' }}>{textTable[tableID].d6Choice3}</Typography>
+              <Typography sx={{ fontFamily: fontTable[tableID], color: '#1A1A1A', marginBottom: '10px' }}>{textTable[tableID].d6Choice4}</Typography>
               {!isPilot && <TextField sx={{ width: '40px', marginBottom: '10px' }} size="small" autoComplete='off' value={answer6} onChange={formHandler6} />}
             </div>
 
