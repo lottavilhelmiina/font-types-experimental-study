@@ -407,7 +407,7 @@ function App() {
           </Box>
         ) : (
           isVisible && tableID < 4 && <div>
-            <div class="container">
+            <div className="container">
               <span><p id="timer">{minutes} minutes and {seconds} seconds left</p></span>
             </div>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
