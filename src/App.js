@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import axios from 'axios'
 
 function App() {
-  const [minutes, setMinutes] = React.useState(2);
+  const [minutes, setMinutes] = React.useState(10);
   const [seconds, setSeconds] = React.useState(0);
   const [textTable, setTextTable] = useState([
     {
@@ -284,7 +284,8 @@ function App() {
       const practiceObject = {
         description: "practice task",
         participantID: 1,
-        question1: answer1
+        question1: textTable[tableID].description1,
+        answer1: answer1
       }
       axios
         .post('http://localhost:3001/answers', practiceObject)
@@ -297,12 +298,18 @@ function App() {
       const noteObject = {
         description: "task " + tableID,
         participantID: 1,
-        question1: answer1,
-        question2: answer2,
-        question3: answer3,
-        question4: answer4,
-        question5: answer5,
-        question6: answer6
+        question1: textTable[tableID].description1,
+        answer1: answer1,
+        question2: textTable[tableID].description2,
+        answer2: answer2,
+        question3: textTable[tableID].description3,
+        answer3: answer3,
+        question4: textTable[tableID].description4,
+        answer4: answer4,
+        question5: textTable[tableID].description5,
+        answer5: answer5,
+        question6: textTable[tableID].description6,
+        answer6: answer6
       }
       axios
         .post('http://localhost:3001/answers', noteObject)
@@ -333,7 +340,7 @@ function App() {
 
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 120000);
+      }, 600000);
 
       return () => clearTimeout(timer);
     }
@@ -351,12 +358,12 @@ function App() {
       setIsPilot(false);
       setTableID(tableID + 1);
       setIsVisible(true);
-      setMinutes(2)
+      setMinutes(10)
       setSeconds(0)
 
       const secondTimer = setTimeout(() => {
         setIsVisible(false);
-      }, 120000);
+      }, 600000);
 
       return () => clearTimeout(secondTimer);
     }
@@ -371,14 +378,14 @@ function App() {
             setSeconds(59);
             setMinutes(minutes - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 1000);
+          }, 972);
           return () => clearTimeout(updateMinutes);
         }
         else {
           const updateSeconds = setTimeout(() => {
             setSeconds(seconds - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 1000);
+          }, 972);
 
           return () => clearTimeout(updateSeconds);
         }
