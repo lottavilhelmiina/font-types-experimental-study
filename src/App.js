@@ -2,9 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import { Typography, Button, TextField } from '@mui/material'
 import { Box } from '@mui/system';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import axios from 'axios'
 
-function App() {
+function App(props) {
   const [minutes, setMinutes] = React.useState(10);
   const [seconds, setSeconds] = React.useState(0);
   const [textTable, setTextTable] = useState([
@@ -378,14 +381,14 @@ function App() {
             setSeconds(59);
             setMinutes(minutes - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 972);
+          }, 947);
           return () => clearTimeout(updateMinutes);
         }
         else {
           const updateSeconds = setTimeout(() => {
             setSeconds(seconds - 1);
             //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 972);
+          }, 947);
 
           return () => clearTimeout(updateSeconds);
         }
@@ -399,7 +402,7 @@ function App() {
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '18px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '10px' }}>Read this information before starting the experiment:</Typography>}
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Each test has a time limit of 10 minutes. After this, the program automatically moves to the next phase. If you are ready before the time expires, you can press the button on the bottom of the page to move forward. <b>Do not press the button before finishing your answers!</b></Typography>}
         {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>The first test is a practice test, that shows how to perform the upcoming tasks. After this, there are <b>three</b> tasks to complete. Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. If you do not know the answer, do not guess, instead leave the answer blank.</Typography>}
-        {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Do not refresh the page at any point. When you are done, leave the page open without closing or refreshing.</Typography>}
+        {isIntro && <Typography sx={{ textAlign: 'left', fontFamily: 'Segoe UI', fontSize: '17px', color: '#1A1A1A', marginBottom: '40px' }}>Do not refresh the page at any point.</Typography>}
 
         {isIntro ? (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -407,9 +410,22 @@ function App() {
           </Box>
         ) : (
           isVisible && tableID < 4 && <div>
-            <div className="container">
-              <span><p id="timer">{minutes} minutes and {seconds} seconds left</p></span>
-            </div>
+        <AppBar position='absolute'sx={{bgcolor: minutes > 0 ? "#D3D3D3" : "#FF9478"}}>
+          <Toolbar>
+            <AccessAlarmIcon sx={{color: 'black'}}/>
+            <Typography sx={{color: 'black', fontSize: "18px"}} variant="h6" component="div">
+            {minutes} minutes {seconds} seconds left
+            </Typography>
+            <br/>
+
+          </Toolbar>
+        </AppBar>
+      <Toolbar />
+      <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '15px', color: '#1A1A1A', marginBottom: '20px' }}>Each test has a time limit of 10 minutes. After this, the program automatically moves to the next phase. If you are ready before the time expires, you can press the button on the bottom of the page to move forward. Do not press the button before finishing your answers, nor refresh the page at any point!</Typography>
+        <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '15px', color: '#1A1A1A', marginBottom: '80px' }}>Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. If you do not know the answer, do not guess, instead leave the answer blank.</Typography>
+
+{tableID < 1 && <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '24px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '20px' }}>Practice test</Typography>}
+{tableID > 0 && tableID < 4 && <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '24px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '20px' }}>Test {tableID}</Typography>}
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg1}</Typography>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg2}</Typography>
@@ -479,14 +495,14 @@ function App() {
           </div>
         )}
 
-        {!isVisible && !isEnd && tableID < 1 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && minutes > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && minutes > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && seconds === 0 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
-        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && minutes > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
 
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {!isVisible && !isEnd && tableID < 3 && <Button variant='contained' onClick={handleButtonClick}>Start test number {tableID + 1}</Button>}
