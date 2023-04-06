@@ -369,13 +369,17 @@ function App(props) {
     }
   }
 
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setRemainingTime(prevRemainingTime => prevRemainingTime - 1);
+      if (remainingTime > 0) {
+        setRemainingTime(prevRemainingTime => prevRemainingTime - 1);
+      }
     }, 1000);
     return () => clearInterval(timer);
   }, []);
 
+  
   function formatTime(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
