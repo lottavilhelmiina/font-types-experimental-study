@@ -8,8 +8,8 @@ import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import axios from 'axios'
 
 function App(props) {
-  const [minutes, setMinutes] = React.useState(10);
-  const [seconds, setSeconds] = React.useState(0);
+  const [remainingTime, setRemainingTime] = useState(0);
+
   const [textTable, setTextTable] = useState([
     {
       header: "The state of the world",
@@ -339,6 +339,7 @@ function App(props) {
     if (isIntro === true) {
       setIsIntro(false);
       setIsPilot(true);
+      setRemainingTime(600);
 
 
       const timer = setTimeout(() => {
@@ -361,8 +362,7 @@ function App(props) {
       setIsPilot(false);
       setTableID(tableID + 1);
       setIsVisible(true);
-      setMinutes(10)
-      setSeconds(0)
+setRemainingTime(600);
 
       const secondTimer = setTimeout(() => {
         setIsVisible(false);
@@ -373,28 +373,18 @@ function App(props) {
   }
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      setRemainingTime(prevRemainingTime => prevRemainingTime - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-    if (!isIntro && isVisible) {
-      if (seconds > 0 || minutes > 0) {
-        if (seconds < 1) {
-          const updateMinutes = setTimeout(() => {
-            setSeconds(59);
-            setMinutes(minutes - 1);
-            //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 947);
-          return () => clearTimeout(updateMinutes);
-        }
-        else {
-          const updateSeconds = setTimeout(() => {
-            setSeconds(seconds - 1);
-            //number is <1000ms (1 second), because otherwise the timer lags compared to 10 min.
-          }, 947);
+  function formatTime(timeInSeconds) {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
 
-          return () => clearTimeout(updateSeconds);
-        }
-      }
-    }
-  }, [seconds, minutes, isIntro, isVisible]);
 
   return (
     <div className="App">
@@ -410,11 +400,11 @@ function App(props) {
           </Box>
         ) : (
           isVisible && tableID < 4 && <div>
-        <AppBar position='absolute'sx={{bgcolor: minutes > 0 ? "#D3D3D3" : "#FF9478"}}>
+        <AppBar position='absolute'sx={{bgcolor: remainingTime > 60 ? "#D3D3D3" : "#FF9478"}}>
           <Toolbar>
             <AccessAlarmIcon sx={{color: 'black'}}/>
             <Typography sx={{color: 'black', fontSize: "18px"}} variant="h6" component="div">
-            {minutes} minutes {seconds} seconds left
+            {formatTime(remainingTime)}
             </Typography>
             <br/>
 
@@ -495,14 +485,14 @@ function App(props) {
           </div>
         )}
 
-        {!isVisible && !isEnd && tableID < 1 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID < 1 && minutes > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && remainingTime === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && remainingTime > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
-        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && minutes > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && remainingTime === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && remainingTime > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && minutes === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
-        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && minutes > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && remainingTime === 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && remainingTime > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
 
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {!isVisible && !isEnd && tableID < 3 && <Button variant='contained' onClick={handleButtonClick}>Start test number {tableID + 1}</Button>}
