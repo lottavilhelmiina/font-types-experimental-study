@@ -400,7 +400,7 @@ setRemainingTime(600);
           </Box>
         ) : (
           isVisible && tableID < 4 && <div>
-        <AppBar position='absolute'sx={{bgcolor: remainingTime > 60 ? "#D3D3D3" : "#FF9478"}}>
+        <AppBar position='fixed'sx={{bgcolor: remainingTime > 60 ? "#D3D3D3" : "#FF9478"}}>
           <Toolbar>
             <AccessAlarmIcon sx={{color: 'black'}}/>
             <Typography sx={{color: 'black', fontSize: "18px"}} variant="h6" component="div">
