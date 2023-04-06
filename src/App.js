@@ -31,7 +31,7 @@ function App(props) {
       pg8: "Sleeping only seven hours a night, Kilian Jornet seems almost superhuman. His resting heartbeat is extremely low at 33 beats per minute, compared with the average man's 60 per minute or an athlete's 40 per minute. He breathes more efficiently than average people too, taking in more oxygen per breath, and he has a much faster recovery time after exercise as his body quickly breaks down lactic acid – the acid in muscles that causes pain after exercise.",
       pg9: "All this is thanks to his childhood in the mountains and to genetics, but it is his mental strength that sets him apart. He often sets himself challenges to see how long he can endure difficult conditions in order to truly understand what his body and mind can cope with. For example, he almost gave himself kidney failure after only drinking 3.5 litres of water on a 100km run in temperatures of around 40°C.",
       pg10: "It would take a book to list all the races and awards he's won and the mountains he's climbed. And even here, Kilian’s achievements exceed the average person as, somehow, he finds time to record his career on his blog and has written three books, Run or Die, The Invisible Border and Summits of My Life.",
-      
+
       description1: "Question 1: The majority of climbers on Everest...",
       d1Choice1: "A: need oxygen to finish their ascent.",
       d1Choice2: "B: are accompanied.",
@@ -77,7 +77,7 @@ function App(props) {
       pg5: "While the operation was a huge success for the Latin American industry, the Cavendish banana itself is far from safe. In 2014, South East Asia, another major banana producer, exported four million tons of Cavendish bananas. But, in 2015, its exports had dropped by 46 per cent thanks to a combination of another strain of the fungus, TR-4, and bad weather.",
       pg6: "Growing practices in South East Asia haven’t helped matters. Growers can’t always afford the expensive lab-based methods to clone plants from shoots without spreading the disease. Also, they often aren’t strict enough about cleaning farm equipment and quarantining infected fields. As a result, the fungus has spread to Australia, the Middle East and Mozambique – and Latin America, heavily dependent on its monoculture Cavendish crops, could easily be next.",
       pg7: "Racing against the inevitable, scientists are working on solving the problem by genetically modifying the Cavendish with genes from TR-4-resistant banana species. Researchers at the Queensland University of Technology have successfully grown two kinds of modified plant which have remained resistant for three years so far. But some experts think this is just a sophisticated version of the same temporary solution the original Cavendish provided. If the new bananas are planted in the same monocultures as the Cavendish and the Gros Michel before it, the risk is that another strain of the disease may rise up to threaten the modified plants too.",
-      
+
       description1: "Question 1: Mass-produced bananas are...",
       d1Choice1: "A: grown from seeds because it's efficient.",
       d1Choice2: "B: cloned because it's a fast and cheap way to grow them.",
@@ -342,11 +342,9 @@ function App(props) {
       setRemainingTime(600);
 
 
-      const timer = setTimeout(() => {
+      if (remainingTime === 0) {
         setIsVisible(false);
-      }, 600000);
-
-      return () => clearTimeout(timer);
+      }
     }
     // Update state with the input value
 
@@ -362,13 +360,12 @@ function App(props) {
       setIsPilot(false);
       setTableID(tableID + 1);
       setIsVisible(true);
-setRemainingTime(600);
+      setRemainingTime(600);
 
-      const secondTimer = setTimeout(() => {
+      if (remainingTime === 0) {
         setIsVisible(false);
-      }, 600000);
+      }
 
-      return () => clearTimeout(secondTimer);
     }
   }
 
@@ -400,22 +397,22 @@ setRemainingTime(600);
           </Box>
         ) : (
           isVisible && tableID < 4 && <div>
-        <AppBar position='fixed'sx={{bgcolor: remainingTime > 60 ? "#D3D3D3" : "#FF9478"}}>
-          <Toolbar>
-            <AccessAlarmIcon sx={{color: 'black'}}/>
-            <Typography sx={{color: 'black', fontSize: "18px"}} variant="h6" component="div">
-            {formatTime(remainingTime)}
-            </Typography>
-            <br/>
+            <AppBar position='fixed' sx={{ bgcolor: remainingTime > 60 ? "#D3D3D3" : "#FF9478" }}>
+              <Toolbar>
+                <AccessAlarmIcon sx={{ color: 'black' }} />
+                <Typography sx={{ color: 'black', fontSize: "18px" }} variant="h6" component="div">
+                  {formatTime(remainingTime)}
+                </Typography>
+                <br />
 
-          </Toolbar>
-        </AppBar>
-      <Toolbar />
-      <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '15px', color: '#1A1A1A', marginBottom: '20px' }}>Each test has a time limit of 10 minutes. After this, the program automatically moves to the next phase. If you are ready before the time expires, you can press the button on the bottom of the page to move forward. Do not press the button before finishing your answers, nor refresh the page at any point!</Typography>
-        <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '15px', color: '#1A1A1A', marginBottom: '80px' }}>Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. If you do not know the answer, do not guess, instead leave the answer blank.</Typography>
+              </Toolbar>
+            </AppBar>
+            <Toolbar />
+            <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '15px', color: '#1A1A1A', marginBottom: '20px' }}>Each test has a time limit of 10 minutes. After this, the program automatically moves to the next phase. If you are ready before the time expires, you can press the button on the bottom of the page to move forward. Do not press the button before finishing your answers, nor refresh the page at any point!</Typography>
+            <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '15px', color: '#1A1A1A', marginBottom: '80px' }}>Answer to each text field with a plain alphabet letter from A to D, accordingly to the questions. If you do not know the answer, do not guess, instead leave the answer blank.</Typography>
 
-{tableID < 1 && <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '24px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '20px' }}>Practice test</Typography>}
-{tableID > 0 && tableID < 4 && <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '24px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '20px' }}>Test {tableID}</Typography>}
+            {tableID < 1 && <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '24px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '20px' }}>Practice test</Typography>}
+            {tableID > 0 && tableID < 4 && <Typography sx={{ textAlign: 'left', fontFamily: fontTable[tableID], fontSize: '24px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '20px' }}>Test {tableID}</Typography>}
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', fontSize: '20px', fontWeight: 'bold', color: '#1A1A1A' }}>{textTable[tableID].header}</Typography>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg1}</Typography>
             <Typography sx={{ fontFamily: fontTable[tableID], margin: '15px 0px', color: '#1A1A1A' }}>{textTable[tableID].pg2}</Typography>
