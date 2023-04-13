@@ -9,6 +9,7 @@ import worker_script from "./worker-script.js";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import { tab } from '@testing-library/user-event/dist/tab.js';
 
 const timerWorker = new Worker(worker_script);
 
@@ -202,11 +203,10 @@ function App() {
 
   useEffect(() => {
     timerWorker.onmessage = ({ data: { time } }) => {
-      if (time === 0) {
+      if (time === 0 && !isEnd) {
         timerWorker.postMessage({ turn: "off" });
         setIsFinished(true);
         setIsVisible(false);
-        setWebWorkerTime(600);
       }
       setWebWorkerTime(time);
     };
@@ -376,37 +376,37 @@ function App() {
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    if (isIntro === true) {
-      setIsIntro(false);
-      setIsPilot(true);
+    if (tableID >= 0 && tableID < 3) {
+      if (tableID === 0) {
+        setIsIntro(false);
+        setIsPilot(true);
+      }
+
+      if (tableID === 1) {
+        setIsPilot(false);
+      }
+
+      if(!isVisible) {
+        addNote();
+        resetWebWorkerTimer();
+        setTableID((tableID) => tableID + 1)
+        console.log(textTable[tableID].description1);
+        console.log(tableID);
+        
+      }
+      setIsVisible(true);
       startWebWorkerTimer();
-
-
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, 600000);
-      return () => clearTimeout(timer);
+      console.log(textTable[tableID].description1);
+        console.log(tableID);
     }
-
     if (tableID === 3) {
       addNote();
       setIsEnd(true);
-      setIsVisible(false);
       console.log("Participant 1");
       console.log(answers);
     }
-    else {
 
-      resetWebWorkerTimer();
-      addNote();
-      setIsPilot(false);
-      setTableID(tableID + 1);
-      setIsVisible(true);
-      startWebWorkerTimer();
     }
-  }
-
-
 
   return (
     <div className="App">
@@ -422,7 +422,7 @@ function App() {
             <Button variant='contained' onClick={handleButtonClick}>Start the practice test</Button>
           </Box>
         ) : ( 
-          isVisible && tableID < 4 && <div>
+          isVisible && tableID < 5 && <div>
 
 <div>
           <AppBar position='fixed'sx={{bgcolor: webWorkerTime > 60 ? "#D3D3D3" : "#FF9478"}}>
@@ -505,20 +505,20 @@ function App() {
 
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               {isPilot ? (<Button sx={{ marginTop: '40px' }} variant='contained' onClick={handleTestButtonClick}>Move to the experiment</Button>)
-                : (<Button sx={{ marginTop: '40px', mt: 1 }} variant='contained' onClick={handleTestButtonClick}>Move to the next phase</Button>)}
+                : (<Button sx={{ marginTop: '40px', mt: 1 }} variant='contained' onClick={handleTestButtonClick}>Move to the text {tableID + 1}</Button>)}
             </Box>
 
           </div>
         )}
 
-        {!isVisible && !isEnd && tableID < 1 && webWorkerTime < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID < 1 && webWorkerTime < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Time limit for practice test has exceeded. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
         {!isVisible && !isEnd && tableID < 1 && webWorkerTime > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', marginBottom: '50px', fontSize: '20px', color: '#1A1A1A' }}>Practice test has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && webWorkerTime < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to move forward, when you are ready.</Typography>}
+        {!isVisible && !isEnd && tableID > 0 && tableID < 3 && webWorkerTime < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
         {!isVisible && !isEnd && tableID > 0 && tableID < 3 && webWorkerTime > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to start the test number {tableID + 1}, when you are ready.</Typography>}
 
-        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && webWorkerTime < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
-        {!isVisible && !isEnd && tableID > 0 && tableID === 3 && webWorkerTime > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
+        {!isVisible && !isEnd && tableID === 3 && webWorkerTime < 1 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Time limit for test {tableID} has exceeded. Press the button below to finish the experiment.</Typography>}
+        {!isVisible && !isEnd && tableID === 3 && webWorkerTime > 0 && <Typography sx={{ textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 'bold', fontSize: '20px', color: '#1A1A1A', marginBottom: '50px' }}>Test {tableID} has been completed. Press the button below to finish the experiment.</Typography>}
 
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {!isVisible && !isEnd && tableID < 3 && <Button variant='contained' onClick={handleButtonClick}>Start test number {tableID + 1}</Button>}
@@ -530,5 +530,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
