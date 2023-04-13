@@ -11,7 +11,7 @@ const workercode = () => {
     if (turn === "on") {
       time = 600;
       timerInterval = setInterval(() => {
-        time -= 100;
+        time -= 1;
         self.postMessage({ time });
 
         if (time <= 0) {
