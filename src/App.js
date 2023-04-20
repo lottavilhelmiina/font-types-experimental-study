@@ -72,7 +72,7 @@ const DATA = [
     d6Choice3: "C: best for an expert audience.",
     d6Choice4: "D: another example of his impressive accomplishments.",
     id: 1,
-    font: "San Francisco",
+    font: "Roboto",
   },
   {
     header: "A threat to bananas",
@@ -120,7 +120,7 @@ const DATA = [
     d6Choice3: "C: Cautious",
     d6Choice4: "D: Uninterested",
     id: 2,
-    font: "Helvetica",
+    font: "San Francisco",
   },
   {
     header: "Managing a problem",
@@ -175,7 +175,7 @@ const DATA = [
     d6Choice3: "C: Use language to show that she's expressing her own opinion or a possibility and not hard facts",
     d6Choice4: "D: All of the above",
     id: 3,
-    font: "Roboto",
+    font: "Helvetica",
   }
 ];
 
