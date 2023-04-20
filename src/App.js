@@ -250,13 +250,12 @@ function App() {
     event.target.value = event.target.value.replace(/\W|\d/g, '').substr(0, 1).toUpperCase();
 
     // If practice task, allow only values A-C and "" as input.
-    if (isPilot) {
+    if (tableID < 1) {
       const re = /^[A-C]+$/;
       if (event.target.value === "" || re.test(event.target.value)) {
         setAnswer1(event.target.value);
       }
     }
-
     // In other cases allow only values A-D and "" as input.
     else {
       // Allow only values A-D and "" as input.
